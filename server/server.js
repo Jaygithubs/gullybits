@@ -5,6 +5,8 @@ const connectDB=require("./src/config/db");
 connectDB();
 const bodyParser=require("body-parser");
 
+console.log('Hellow jay');
+
 app.use(bodyParser.json());
 // Parse URL-encoded form data
 app.use(bodyParser.urlencoded({ extended: true }));
