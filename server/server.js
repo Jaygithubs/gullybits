@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api',require("./src/routes/authRoutes"));
 
-app.get('/',(req,res) => {
+app.get('/',(req,res) => { 
     res.send("Welcome to GullyBits");
 })
 app.listen(PORT,() => {
