@@ -3,13 +3,7 @@ const app=express();
 const PORT=5000;
 const connectDB=require("./src/config/db");
 connectDB();
-const bodyParser=require("body-parser");
-
-console.log('Hellow jay');
-
-app.use(bodyParser.json());
-// Parse URL-encoded form data
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use('/api',require("./src/routes/authRoutes"));
 
