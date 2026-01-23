@@ -4,23 +4,31 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata = {
   title: "GullyBits",
-  description: "This web will be blessing for street food vendors.",
+  description: "This web will be a blessing for street food vendors.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`
+          ${geistSans.variable}
+          ${geistMono.variable}
+          bg-[var(--color-bg)]
+          text-[var(--color-text)]
+          antialiased
+        `}
       >
         {children}
       </body>
