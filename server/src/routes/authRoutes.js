@@ -1,13 +1,19 @@
-const express=require("express");
+const express=require('express');
 const router=express.Router();
-const { registerUser,loginUser,vendorRegister,deliveryBoyRegister } = require("../controllers/authController");
+const { getUsers,registerUser,loginUser,verifyEmail } = require('../controllers/authController');
+const authMiddleware = require('../Middleware/authMiddleware');
+const authorizeRoles = require("../Middleware/roleMiddleware");
+
+router.get('/users', getUsers);
 
 router.post('/register', registerUser);
 
-router.get('/login',loginUser);
+router.post('/login', loginUser);
 
-router.get('/vendor/register',vendorRegister);
+router.post('/verify-email', verifyEmail);
 
-router.get('/delivery/register',deliveryBoyRegister);
+router.get('/authuser', authMiddleware , authorizeRoles('Provider') ,(req,res) => {
+    res.send("Ye authorized route hai be");
+})
 
 module.exports=router;

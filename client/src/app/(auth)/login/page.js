@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { authService } from "@/services/auth.service";
+import { setToken } from "@/utils/token"; 
 
 export default function LoginPage() {
   const router = useRouter();
@@ -20,22 +22,15 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
-        }
-      );
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message);
-
-      localStorage.setItem("token", data.Token);
+      
+      const res = await authService.login(form);
+      const data = await res.data;
+      console.log(data);
+      if (!data.success) throw new Error(data.message);
+      setToken(data.Token);
       router.push("/dashboard");
     } catch (err) {
-      alert(err.message || "Login failed");
+      console.log(err.message || "Login failed");
     } finally {
       setLoading(false);
     }

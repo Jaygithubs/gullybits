@@ -3,10 +3,16 @@ dotenv.config();
 const express=require("express");
 const app=express();
 const connectDB=require("./src/config/db");
+const cors = require('cors');
+app.use(cors(
+    {
+        origin: process.env.LOCAL_ORIGIN,
+    }
+));
 connectDB();
 app.use(express.json());
 
-app.use('/api',require("./src/routes/authRoutes"));
+app.use('/api', require('./src/routes/authRoutes'));
 
 app.get('/',(req,res) => { 
     res.send("Welcome to GullyBits");
