@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { authService } from "../../../services/auth.service";
 import { useRouter } from "next/navigation";
-import { authService } from "@/services/auth.service";
 
 export default function RegisterPage() {
   const router = useRouter();

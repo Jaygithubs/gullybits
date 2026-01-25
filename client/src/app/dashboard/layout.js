@@ -1,97 +1,91 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function DashboardLayout({ children }) {
-    const pathname = usePathname();
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-
-    const linkClass = (path) =>
-        `block px-4 py-2 rounded-lg text-sm transition-all duration-200
-     ${pathname === path
-            ? "bg-orange-50 text-[#ef9815] font-medium border-l-4 border-[#ef9815]"
-            : "text-gray-600 hover:bg-orange-50 hover:text-[#ef9815] hover:border-l-4 hover:border-orange-200"
-        }`;
-
-    const navItems = [
-        { href: "/dashboard", label: "Dashboard" },
-        { href: "/dashboard/listings", label: "Food Listings" },
-        { href: "/dashboard/delivery/orders", label: "Orders" },
-        { href: "/dashboard/profile", label: "Profile" },
-    ];
+    const router = useRouter();
+    const [open, setOpen] = useState(false);
 
     return (
-        <div className="min-h-screen flex bg-gray-50">
-            {/* Mobile Sidebar Overlay */}
-            {sidebarOpen && (
+        <div className="min-h-screen flex bg-[#f9fafb]">
+            {/* Mobile overlay */}
+            {open && (
                 <div
-                    className="fixed inset-0 bg-black bg-opacity-50 z-20 md:hidden"
-                    onClick={() => setSidebarOpen(false)}
+                    className="fixed inset-0 bg-black/40 z-30 md:hidden"
+                    onClick={() => setOpen(false)}
                 />
             )}
 
             {/* Sidebar */}
-            <aside className={`
-                fixed md:relative w-64 h-full flex flex-col bg-white border-r z-30 transform transition-transform duration-300
-                ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-            `}>
-                <div className="p-6 flex items-center justify-between border-b">
-                    <div className="text-2xl font-semibold text-[#ef9815]">
-                        GullyBits
-                    </div>
-                    <button
-                        className="md:hidden text-gray-500 hover:text-gray-700"
-                        onClick={() => setSidebarOpen(false)}
-                    >
-                        <X size={24} />
-                    </button>
+            <aside
+                className={`fixed md:static z-40 w-64 h-full bg-white border-r 
+        transform ${open ? "translate-x-0" : "-translate-x-full"} 
+        md:translate-x-0 transition-transform duration-300`}
+            >
+                <div className="p-6 border-b">
+                    <h2 className="text-2xl font-bold text-primary">GullyBits</h2>
+                    <p className="text-xs text-muted">Dashboard</p>
                 </div>
 
-                <nav className="flex-1 px-3 py-4 space-y-2">
-                    {navItems.map((item) => (
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            className={linkClass(item.href)}
-                            onClick={() => setSidebarOpen(false)}
+                <nav className="p-4 space-y-2">
+                    {[
+                        { label: "Overview", path: "/dashboard", icon: "📊" },
+                        { label: "Profile", path: "/dashboard/profile", icon: "👤" },
+                        { label: "Settings", path: "/dashboard/settings", icon: "⚙️" },
+                    ].map((item) => (
+                        <button
+                            key={item.label}
+                            onClick={() => {
+                                router.push(item.path);
+                                setOpen(false);
+                            }}
+                            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl
+              text-sm font-medium hover:bg-orange-50 transition"
                         >
+                            <span>{item.icon}</span>
                             {item.label}
-                        </Link>
+                        </button>
                     ))}
                 </nav>
-            </aside>
 
-            {/* Main Content */}
-            <main className="flex-1 flex flex-col min-h-screen">
-                {/* Topbar */}
-                <header className="h-16 bg-white border-b flex items-center justify-between px-4 md:px-6 sticky top-0 z-10">
-                    <div className="flex items-center gap-4">
-                        <button
-                            className="md:hidden text-gray-500 hover:text-gray-700"
-                            onClick={() => setSidebarOpen(true)}
-                        >
-                            <Menu size={24} />
-                        </button>
-                        <p className="text-sm text-gray-500">
-                            Welcome back <span className="ml-1">👋</span>
-                        </p>
-                    </div>
-
-                    <button className="btn-primary px-4 py-2 text-sm bg-[#ef9815] text-white rounded-lg hover:bg-orange-600 transition-colors">
+                <div className="p-4 mt-auto border-t">
+                    <button
+                        onClick={() => router.push("/login")}
+                        className="btn-primary w-full"
+                    >
                         Logout
                     </button>
+                </div>
+            </aside>
+
+            {/* Main */}
+            <div className="flex-1 flex flex-col">
+                {/* Topbar */}
+                <header className="h-16 bg-white border-b flex items-center justify-between px-4 md:px-6">
+                    <div className="flex items-center gap-3">
+                        <button
+                            className="md:hidden text-xl"
+                            onClick={() => setOpen(true)}
+                        >
+                            ☰
+                        </button>
+                        <h1 className="text-lg font-semibold">Dashboard</h1>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                        <span className="text-sm text-muted hidden sm:block">
+                            Welcome back 👋
+                        </span>
+                        <div className="w-9 h-9 rounded-full bg-orange-100 text-primary flex items-center justify-center font-bold">
+                            N
+                        </div>
+                    </div>
                 </header>
 
-                {/* Page Content */}
-                <section className="flex-1 p-4 md:p-6">
-                    <div className="max-w-7xl mx-auto">
-                        {children}
-                    </div>
-                </section>
-            </main>
+                {/* Content */}
+                <main className="p-4 md:p-6">{children}</main>
+            </div>
         </div>
     );
 }

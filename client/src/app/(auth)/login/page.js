@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { authService } from "@/services/auth.service";
-import { setToken } from "@/utils/token"; 
+import { authService } from "../../../services/auth.service";
+import { setToken } from "../../../utils/token";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -22,7 +22,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      
+
       const res = await authService.login(form);
       const data = await res.data;
       console.log(data);
@@ -62,6 +62,16 @@ export default function LoginPage() {
             required
           />
 
+          {/* Forgot Password */}
+          <div className="text-right mb-4">
+            <span
+              className="text-sm text-primary cursor-pointer hover:underline"
+              onClick={() => router.push("/forgot-password")}
+            >
+              Forgot password?
+            </span>
+          </div>
+
           <button className="btn-primary" disabled={loading}>
             {loading ? "Please wait..." : "Login"}
           </button>
@@ -78,5 +88,6 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+
   );
 }

@@ -39,8 +39,15 @@ const UserSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
+
+    //email verification token and expiry
     emailVerificationToken: String,
-    emailVerificationExpires: Date
+    emailVerificationExpires: Date,
+
+    //password reset token and expiry can be added here
+    passwordResetToken: String,
+    passwordResetExpires: Date,
+
     },
     {
         timestamps:true
