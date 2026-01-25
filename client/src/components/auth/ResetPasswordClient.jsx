@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { authService } from "../../../services/auth.service";
+import { authService } from "../../services/auth.service";
 
 export default function ResetPasswordClient() {
   const router = useRouter();
