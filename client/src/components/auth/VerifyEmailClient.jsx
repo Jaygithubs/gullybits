@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { authService } from "@/services/auth.service";
+import { authService } from "../../services/auth.service";
 
 export default function VerifyEmailClient() {
   const searchParams = useSearchParams();
