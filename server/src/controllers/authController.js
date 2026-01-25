@@ -66,7 +66,7 @@ const registerUser = async (req,res) => {
         await newUser.save();
 
         // sending verification email here
-        const verifyLink = `${process.env.LOCAL_ORIGIN}/verify-email?token=${verificationToken}`;
+        const verifyLink = `${process.env.ORIGIN}/verify-email?token=${verificationToken}`;
         const html = emailVerificationTemplate(name,verifyLink);
         await sendEmail({
             to:email,
@@ -172,7 +172,7 @@ const forgotPassword = async (req,res) => {
     user.passwordResetExpires = passwordResetExpires;
     await user.save();
     // 3️⃣ send email
-    const resetLink = `${process.env.LOCAL_ORIGIN}/reset-password?token=${resetToken}`;
+    const resetLink = `${process.env.ORIGIN}/reset-password?token=${resetToken}`;
     const html = resetPasswordTemplate(user.name, resetLink);
     await sendEmail({
         to: email,
