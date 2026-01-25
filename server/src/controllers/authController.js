@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const sendEmail = require('../utils/emailSend');
 const emailVerificationTemplate = require('../utils/emailVerificationTemplate');
+const resetPasswordTemplate = require('../utils/resetPasswordTemplate');
 
 const getUsers = async (req,res) => {
     const users = await User.find();
@@ -172,7 +173,7 @@ const forgotPassword = async (req,res) => {
     await user.save();
     // 3️⃣ send email
     const resetLink = `${process.env.LOCAL_ORIGIN}/reset-password?token=${resetToken}`;
-    const html = `<p>Click <a href="${resetLink}">here</a> to reset your password. This link is valid for 1 hour.</p>`;
+    const html = resetPasswordTemplate(user.name, resetLink);
     await sendEmail({
         to: email,
         subject: "Password Reset",

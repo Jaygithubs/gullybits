@@ -31,7 +31,7 @@ export default function ResetPasswordClient() {
     setMessage("");
 
     try {
-      const res = await authService.resetPassword({ token, password });
+      const res = await authService.resetPassword({ token, newPassword: password });
       const data = res.data;
 
       if (!data.success) {

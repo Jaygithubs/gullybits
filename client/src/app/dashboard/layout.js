@@ -18,46 +18,74 @@ export default function DashboardLayout({ children }) {
             )}
 
             {/* Sidebar */}
-            <aside
-                className={`fixed md:static z-40 w-64 h-full bg-white border-r 
-        transform ${open ? "translate-x-0" : "-translate-x-full"} 
-        md:translate-x-0 transition-transform duration-300`}
-            >
+            <aside className="w-64 bg-white border-r flex flex-col">
+                {/* Brand */}
                 <div className="p-6 border-b">
-                    <h2 className="text-2xl font-bold text-primary">GullyBits</h2>
-                    <p className="text-xs text-muted">Dashboard</p>
+                    <h2 className="text-xl font-bold text-[#ef9815]">GullyBits</h2>
+                    <p className="text-xs text-gray-600">Dashboard</p>
                 </div>
 
-                <nav className="p-4 space-y-2">
-                    {[
-                        { label: "Overview", path: "/dashboard", icon: "📊" },
-                        { label: "Profile", path: "/dashboard/profile", icon: "👤" },
-                        { label: "Settings", path: "/dashboard/settings", icon: "⚙️" },
-                    ].map((item) => (
-                        <button
-                            key={item.label}
-                            onClick={() => {
-                                router.push(item.path);
-                                setOpen(false);
-                            }}
-                            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl
-              text-sm font-medium hover:bg-orange-50 transition"
-                        >
-                            <span>{item.icon}</span>
-                            {item.label}
-                        </button>
-                    ))}
+                {/* Navigation */}
+                <nav className="flex-1 p-4 space-y-1">
+                    <button
+                        onClick={() => router.push("/dashboard")}
+                        className="
+        w-full flex items-center gap-3 px-4 py-3 rounded-lg
+        text-sm font-semibold text-gray-900
+        hover:bg-[#ef9815] hover:text-white
+        transition
+      "
+                    >
+                        <span className="text-base">📊</span>
+                        Overview
+                    </button>
+
+                    <button
+                        onClick={() => router.push("/dashboard/profile")}
+                        className="
+        w-full flex items-center gap-3 px-4 py-3 rounded-lg
+        text-sm font-semibold text-gray-900
+        hover:bg-[#ef9815] hover:text-white
+        transition
+      "
+                    >
+                        <span className="text-base">👤</span>
+                        Profile
+                    </button>
+
+                    <button
+                        onClick={() => router.push("/dashboard/settings")}
+                        className="
+        w-full flex items-center gap-3 px-4 py-3 rounded-lg
+        text-sm font-semibold text-gray-900
+        hover:bg-[#ef9815] hover:text-white
+        transition
+      "
+                    >
+                        <span className="text-base">⚙️</span>
+                        Settings
+                    </button>
                 </nav>
 
-                <div className="p-4 mt-auto border-t">
+                {/* Logout */}
+                <div className="p-4 border-t">
                     <button
                         onClick={() => router.push("/login")}
-                        className="btn-primary w-full"
+                        className="
+                            w-full flex items-center gap-3 px-4 py-3 rounded-lg
+                            text-sm font-semibold hover:bg-transparent hover:text-orange-500 hover:border-orange-500
+                            border border-transparent
+                            bg-orange-400 text-white
+                            transition
+                        "
                     >
+                        <span className="text-base">🚪</span>
                         Logout
                     </button>
                 </div>
             </aside>
+
+
 
             {/* Main */}
             <div className="flex-1 flex flex-col">
