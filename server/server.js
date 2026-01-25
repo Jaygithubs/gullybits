@@ -6,7 +6,7 @@ const connectDB=require("./src/config/db");
 const cors = require('cors');
 app.use(cors(
     {
-        origin: process.env.LOCAL_ORIGIN,
+        origin: process.env.ORIGIN,
     }
 ));
 connectDB();
