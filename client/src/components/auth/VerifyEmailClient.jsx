@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { authService } from "../../services/auth.service";
+import { authService } from "../../../services/auth.service";
 
 export default function VerifyEmailClient() {
   const searchParams = useSearchParams();
@@ -29,7 +29,7 @@ export default function VerifyEmailClient() {
         setStatus("error");
         setMessage(
           err?.response?.data?.message ||
-            "Verification failed. Token may be expired."
+          "Verification failed. Token may be expired."
         );
       }
     };
