@@ -14,6 +14,22 @@ app.use(express.json());
 
 app.use('/api', require('./src/routes/authRoutes'));
 
+// User routes
+app.use('/api/users', require('./src/routes/userRoutes'));
+
+// Vendor routes
+app.use('/api/vendors', require('./src/routes/vendorRoutes'));
+
+// Food Item routes
+app.use('/api/food-items', require('./src/routes/foodRoutes'));
+
+// Order routes
+app.use('/api/orders', require('./src/routes/orderRoutes'));
+
+// Delivery routes
+app.use('/api/deliveries', require('./src/routes/deliveryRoutes'));
+
+
 app.get('/',(req,res) => { 
     res.send("Welcome to GullyBits");
 })
