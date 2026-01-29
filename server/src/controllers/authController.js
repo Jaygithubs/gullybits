@@ -136,6 +136,11 @@ const loginUser = async (req,res) => {
         // send response
         res.status(200).json({
             success:true,
+            user:{
+                name:isUserExists.name,
+                email:isUserExists.email,
+                role:isUserExists.role
+            },
             message:'Login successful',
             Token:token
         })

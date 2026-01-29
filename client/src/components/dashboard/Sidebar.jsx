@@ -2,6 +2,7 @@
 
 import { Button } from "../common/Button";
 import { SidebarLink } from "./SideBarLink";
+import { useAuthStore } from "../../store/auth.store";
 import {
   Truck,
   PackageCheck,
@@ -14,6 +15,13 @@ import {
 } from "lucide-react";
 
 const Sidebar = ({ onClose }) => {
+
+  const Logout = useAuthStore((state) => state.logout);
+
+  const logout = () => {
+    Logout();
+  };
+
   return (
     <div className="bg-red-100 min-h-screen flex flex-col justify-between p-4">
 
@@ -46,7 +54,7 @@ const Sidebar = ({ onClose }) => {
       </aside>
 
       {/* Footer */}
-      <Button>Logout</Button>
+      <Button onClick={logout}>Logout</Button>
     </div>
   );
 };

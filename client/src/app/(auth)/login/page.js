@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { authService } from "../../../services/auth.service";
-import { setToken } from "../../../utils/token";
+import { useAuthStore } from "../../../store/auth.store";
 
 export default function LoginPage() {
   const router = useRouter();
+  const login = useAuthStore((state) => state.login);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     email: "",
@@ -25,10 +26,13 @@ export default function LoginPage() {
 
       const res = await authService.login(form);
       const data = await res.data;
-      console.log(data);
+      
       if (!data.success) throw new Error(data.message);
-      setToken(data.Token);
+
+      login(data.user, data.Token);
+    
       router.push("/dashboard");
+      
     } catch (err) {
       console.log(err.message || "Login failed");
     } finally {
