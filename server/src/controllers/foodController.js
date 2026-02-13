@@ -10,6 +10,28 @@ const getAllFoodItems = async (req, res) => {
     }
 };
 
+// add food item by vendor
+const addFoodItemByVendor = async (req, res) => {
+    try {
+    
+        const { name, description, price, category, isAvailable } = req.body;
+        const vendorId = req.user.id; // getting user id from authenticated request
+        const newFoodItem = new Food({
+            name,
+            description,
+            price,
+            category,
+            isAvailable,
+            vendorId,
+            Image: req.file ? req.file.filename : null, // Assuming image is uploaded via multipart/form-data
+        });
+        await newFoodItem.save();
+        res.status(201).json(newFoodItem);
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error', error: error.message });
+    }
+};
+
 // Get single food item by ID
 const getFoodItemById = async (req, res) => {
     try {
@@ -34,6 +56,7 @@ const getFoodItemsByVendor = async (req, res) => {
 
 module.exports = {
     getAllFoodItems,
+    addFoodItemByVendor,
     getFoodItemById,
     getFoodItemsByVendor
 };

@@ -81,12 +81,12 @@ const deleteFoodItemFromVendorMenu = async (req, res) => {
 // get order list of vendor - to be implemented
 const getVendorOrders = async (req, res) => {
     try {
-        const { vendorId } = req.params;
+        const vendorId = req.user.id; // Get vendorId from authenticated user
         const orders = await Orders.find({ vendor: vendorId });
         res.status(200).json(orders);
     }
     catch (error) {
-        res.status(500).json({ message: 'Server Error', error });
+        res.status(500).json({ message: 'Server Error', error:error.message });
     }
 };
 

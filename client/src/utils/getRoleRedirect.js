@@ -4,7 +4,11 @@ export const getRoleRedirect = (role) => {
       return "/dashboard/vendor";
     case "Delivery":
       return "/dashboard/delivery";
+    case "Customer":
+      return "/";
+    case "Admin":
+      return "/dashboard/admin";
     default:
-      return "/dashboard/user";
+      return "/dashboard";
   }
 };

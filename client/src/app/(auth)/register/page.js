@@ -70,7 +70,7 @@ export default function RegisterPage() {
 
           <select className="input" name="role" onChange={handleChange}>
             <option value="Customer">Customer</option>
-            <option value="Provider">Provider</option>
+            <option value="Vendor">Vendor</option>
             <option value="Delivery">Delivery</option>
           </select>
 

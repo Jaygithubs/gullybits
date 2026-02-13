@@ -2,6 +2,7 @@ const dotenv=require('dotenv');
 dotenv.config();
 const express=require("express");
 const app=express();
+const path = require("path");
 const connectDB=require("./src/config/db");
 const cors = require('cors');
 app.use(cors(
@@ -11,6 +12,7 @@ app.use(cors(
 ));
 connectDB();
 app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "src/uploads")));
 
 app.use('/api', require('./src/routes/authRoutes'));
 
@@ -21,7 +23,7 @@ app.use('/api/users', require('./src/routes/userRoutes'));
 app.use('/api/vendors', require('./src/routes/vendorRoutes'));
 
 // Food Item routes
-app.use('/api/food-items', require('./src/routes/foodRoutes'));
+app.use('/api/food', require('./src/routes/foodRoutes'));
 
 // Order routes
 app.use('/api/orders', require('./src/routes/orderRoutes'));

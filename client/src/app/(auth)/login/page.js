@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { authService } from "../../../services/auth.service";
 import { useAuthStore } from "../../../store/auth.store";
+import { getRoleRedirect } from "../../../utils/getRoleRedirect";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -30,8 +31,9 @@ export default function LoginPage() {
       if (!data.success) throw new Error(data.message);
 
       login(data.user, data.Token);
-    
-      router.push("/dashboard");
+
+      // console.log(data.user.role);
+      router.replace(getRoleRedirect(data.user.role));
       
     } catch (err) {
       console.log(err.message || "Login failed");

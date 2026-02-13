@@ -137,6 +137,7 @@ const loginUser = async (req,res) => {
         res.status(200).json({
             success:true,
             user:{
+                id:isUserExists._id,
                 name:isUserExists.name,
                 email:isUserExists.email,
                 role:isUserExists.role

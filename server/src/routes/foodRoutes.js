@@ -1,9 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { getAllFoodItems, getFoodItemById, getFoodItemsByVendor } = require('../controllers/foodController');    
+const { getAllFoodItems, getFoodItemById, getFoodItemsByVendor,addFoodItemByVendor } = require('../controllers/foodController');  
+const upload = require('../Middleware/upload'); 
+const authMiddleware = require('../Middleware/authMiddleware'); 
 
 // get all food items
 router.get('/', getAllFoodItems);
+
+// add foot item by vendor
+router.post('/vendor/add', authMiddleware, upload.single('image'), addFoodItemByVendor);
 
 // get single food item by id
 router.get('/:id', getFoodItemById);
